@@ -1,0 +1,81 @@
+name: Test Find Lowest Number
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test_case_1:
+    name: Test with 10 numbers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Execute script with test1 input
+        run: python find_lowest_number.py test_data/test1_input.txt actual_output_1.txt
+
+      - name: Compare output with expected for test1
+        run: diff test_data/test1_expected.txt actual_output_1.txt
+
+      - name: Upload output for test1 (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test1_output
+          path: actual_output_1.txt
+
+  test_case_2:
+    name: Test with 1 number
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Execute script with test2 input
+        run: python find_lowest_number.py test_data/test2_input.txt actual_output_2.txt
+
+      - name: Compare output with expected for test2
+        run: diff test_data/test2_expected.txt actual_output_2.txt
+
+      - name: Upload output for test2 (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test2_output
+          path: actual_output_2.txt
+
+  test_case_3:
+    name: Test with blank file
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Execute script with test3 input
+        run: python find_lowest_number.py test_data/test3_input.txt actual_output_3.txt
+
+      - name: Compare output with expected for test3
+        run: diff test_data/test3_expected.txt actual_output_3.txt
+
+      - name: Upload output for test3 (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test3_output
+          path: actual_output_3.txt
